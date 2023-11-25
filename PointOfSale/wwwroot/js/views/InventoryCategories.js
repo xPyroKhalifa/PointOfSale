@@ -48,7 +48,7 @@ $(document).ready(function () {
                 text: 'Export Excel',
                 extend: 'excelHtml5',
                 title: '',
-                filename: 'Report categories',
+                filename: 'Report Categories',
                 exportOptions: {
                     columns: [1,2]
                 }

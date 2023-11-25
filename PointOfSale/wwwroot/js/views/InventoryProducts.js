@@ -7,8 +7,8 @@ const BASIC_MODEL = {
     brand: "",
     description: "",
     idCategory: 0,
-    quantity: 0,
-    price: 0,
+    quantity: 1,
+    price: 1,
     isActive: 1,
     photo: ""
 }
@@ -113,7 +113,16 @@ $(document).ready(function () {
         openModal()
     })
 
-    $("#btnSave").on("click", function () {
+$("#btnSave").on("click", function () {
+
+    // Additional validation for the price field
+    const price = parseFloat($("#txtPrice").val());
+    if (price === 0) {
+        const msg = "Price cannot be 0. Please enter a valid price.";
+        toastr.warning(msg, "");
+        $("#txtPrice").focus();
+        return;
+    }
         const inputs = $("input.input-validate").serializeArray();
         const inputs_without_value = inputs.filter((item) => item.value.trim() == "")
 

@@ -1,5 +1,6 @@
 ﻿let tableData;
 let rowSelected;
+const emptyFields = ["txtName", "txtEmail", "txtPhone", "txtPassWord"];
 
 const BASIC_MODEL = {
     idUsers: 0,
@@ -34,7 +35,10 @@ $(document).ready(function () {
         "ajax": {
             "url": "/Admin/GetUsers",
             "type": "GET",
-            "datatype": "json"
+            "datatype": "json",
+            "error": function (xhr, error, thrown) {
+                console.log("DataTables error:", error);
+            }
         },
         "columns": [
             {
@@ -81,6 +85,8 @@ $(document).ready(function () {
             }, 'pageLength'
         ]
     });
+
+
 })
 
 const openModal = (model = BASIC_MODEL ) => {
@@ -105,26 +111,49 @@ $("#btnNewUser").on("click", function () {
 
 
 $("#btnSave").on("click", function () {
+    // Move the inputs declaration to the beginning
+    const inputs = $("input.input-validate").serializeArray();
+   
 
-    const emailInput = $("#txtEmail").val().trim();
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const inputs_without_value = inputs.filter((item) => item.value.trim() === "");
 
-    if (!emailRegex.test(emailInput)) {
-        toastr.warning("Please enter a valid email address.", "");
-        $("#txtEmail").focus();
+    // Check if all specific fields are empty
+    if (emptyFields.some(field => $(`#${field}`).val().trim() === "")) {
+        toastr.warning("Please Fill all Fields", "");
         return;
     }
 
-    const inputs = $("input.input-validate").serializeArray();
-    const inputs_without_value = inputs.filter((item) => item.value.trim() == "");
+    // Check the length of the password
+    const passwordInput = $("#txtPassWord").val();
+    if (passwordInput.length < 8) {
+        toastr.warning("Password must be at least 8 characters long", "");
+        return;
+    }
 
+    // Check the length of the phone number
+    const phoneNumberInput = $("#txtPhone").val();
+    if (phoneNumberInput.length !== 11) {
+        toastr.warning("Phone number must be 11 digits long", "");
+        return;
+    }
+
+    // Check the email is valid
+    const emailInput = $("#txtEmail").val().trim();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(emailInput)) {
+        toastr.warning("Please enter a valid email address.", "");
+        $("#txtEmail");
+        return;
+    }
+    
+    // Check if any input field is empty
     if (inputs_without_value.length > 0) {
         const msg = `You must complete the field: "${inputs_without_value[0].name}"`;
         toastr.warning(msg, "");
         $(`input[name="${inputs_without_value[0].name}"]`).focus();
         return;
     }
-
+    
     const model = structuredClone(BASIC_MODEL);
     model["idUsers"] = parseInt($("#txtId").val());
     model["name"] = $("#txtName").val();
@@ -191,7 +220,9 @@ $("#btnSave").on("click", function () {
     } else {
         saveUser(model);
     }
-});
+   });
+
+
 
 // Function to check if a file is an image
 function isImageFile(file) {
