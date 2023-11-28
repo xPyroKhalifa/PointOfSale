@@ -177,6 +177,11 @@ $('#cboSearchProduct').on('select2:select', function (e) {
             return false;
         }
 
+        if (quantity == 0) {
+            toastr.warning("", "Quantity must be greater than 0");
+            return false;
+        }
+
         if (value === "") {
             toastr.warning("", "You need to enter the amount");
             return false
