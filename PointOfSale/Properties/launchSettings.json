@@ -16,7 +16,6 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-    
   },
   "iisSettings": {
     "windowsAuthentication": false,

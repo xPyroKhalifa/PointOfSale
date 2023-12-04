@@ -172,13 +172,12 @@ $('#cboSearchProduct').on('select2:select', function (e) {
 
 
         let quantity = parseInt(value);
-        if (isNaN(quantity) || quantity <= 0) {
-            toastr.warning("", "Quantity must be a positive number");
-            return false;
-        }
-
         if (quantity == 0) {
             toastr.warning("", "Quantity must be greater than 0");
+            return false;
+        }
+        if (isNaN(quantity) || quantity <= 0) {
+            toastr.warning("", "Quantity must be a positive number");
             return false;
         }
 
