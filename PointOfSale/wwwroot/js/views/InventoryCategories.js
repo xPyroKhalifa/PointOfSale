@@ -51,7 +51,8 @@ $(document).ready(function () {
                 filename: 'Report Categories',
                 exportOptions: {
                     columns: [1,2]
-                }
+                },
+                className: 'btn btn-success' // Add this line for styling
             }, 'pageLength'
         ]
     });

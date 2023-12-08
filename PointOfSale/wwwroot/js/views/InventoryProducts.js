@@ -84,7 +84,8 @@ $(document).ready(function () {
                 filename: 'Report Products',
                 exportOptions: {
                     columns: [2, 3, 4, 5, 6]
-                }
+                },
+                className: 'btn btn-success' // Add this line for styling
             }, 'pageLength'
         ]
     });

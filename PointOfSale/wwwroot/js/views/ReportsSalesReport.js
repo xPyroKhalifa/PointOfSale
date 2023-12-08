@@ -40,6 +40,7 @@ $(document).ready(function () {
                 extend: 'excelHtml5',
                 title: '',
                 filename: 'Sales Report',
+                className: 'btn btn-success' // Add this line for styling
             }, 'pageLength'
         ]
     });
