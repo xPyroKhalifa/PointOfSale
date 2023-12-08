@@ -316,13 +316,6 @@ $("#txtCash").on('input', function () {
 });
 
 
-// Allow only numeric input for txtDocumentClient and limit to 11 digits
-$("#txtDocumentClient").on('input', function () {
-    var numericInput = $(this).val().replace(/[^0-9]/g, '');
-    var limitedInput = numericInput.slice(0, 11);
-    $(this).val(limitedInput);
-});
-
 
 $("#txtCash").on('input', function () {
     var Total = parseFloat($('#txtTotal').val());
@@ -339,24 +332,18 @@ $("#txtCash").on('input', function () {
     $('#txtChange').val(Result.toFixed(2)); // Display result with two decimal places
 });
 
+
+// Allow only numeric input for txtDocumentClient and limit to 11 digits
 $("#txtDocumentClient").on('input', function () {
-    var maxLength = 11;
-    var inputValue = $(this).val();
-
-    // Remove non-numeric characters
-    var numericInput = inputValue.replace(/[^0-9]/g, '');
-
-    // Limit the length to 11 digits
-    var limitedInput = numericInput.slice(0, maxLength);
-
-    // Update the value of txtDocumentClient with the limited input
+    var numericInput = $(this).val().replace(/[^0-9]/g, '');
+    var limitedInput = numericInput.slice(0, 10);
     $(this).val(limitedInput);
 });
 
-
 $("#btnFinalizeSale").click(function () {
 
-
+   
+    
     if (ProductsForSale.length < 1) {
         toastr.warning("", "You must enter products");
         return;

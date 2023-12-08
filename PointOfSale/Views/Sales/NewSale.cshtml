@@ -269,21 +269,6 @@
         function validateInput(input) {
             // Remove non-numeric characters from the input value
             input.value = input.value.replace(/\D/g, '');
-
-        // Get the txtDocumentClient element
-        var txtDocumentClient = document.getElementById('txtDocumentClient');
-
-        // Attach input event listener to txtDocumentClient
-        txtDocumentClient.addEventListener('input', function () {
-            var maxLength = 11;
-            var inputValue = this.value;
-            var numericInput = inputValue.replace(/[^0-9]/g, '');
-            var limitedInput = numericInput.slice(0, maxLength);
-
-            // Update the value of txtDocumentClient with the limited input
-            this.value = limitedInput;
-        });
-
         }
 
 </script>
